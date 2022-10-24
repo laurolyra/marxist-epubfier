@@ -1,11 +1,12 @@
-const express = require ('express');
+const express = require('express');
 const app = express();
-const port = 3000;
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+const routes = require('./routes');
+
+app.get('/', (_req, res) => {
+  res.status(200).send('Hello World!');
 });
 
-app.listen(port, () => {
-  return console.log(`Express is listening at http://localhost:${port}`);
-});
+app.use('/book-page', routes.bookRoute)
+
+module.exports = app;
