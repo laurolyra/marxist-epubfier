@@ -1,3 +1,3 @@
 const wikisourceController = require('./wikisourceController');
 
-module.exports = { wikisourceController };
+export { wikisourceController };

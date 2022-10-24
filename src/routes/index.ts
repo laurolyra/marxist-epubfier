@@ -1,3 +1,3 @@
 const bookRoute = require('./books');
 
-module.exports = { bookRoute };
+export { bookRoute };
