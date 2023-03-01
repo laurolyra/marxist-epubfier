@@ -1,8 +1,8 @@
-const { Router } = require('express');
-const { wikisourceController } = require('../controllers/');
+import express from "express";
+import { bookName } from "../controllers/libraryController";
 
-const router = Router();
+const router = express.Router();
 
-router.get('/:name', wikisourceController.bookName)
+router.get('/:name', bookName)
 
-module.exports = router;
+export default router;
