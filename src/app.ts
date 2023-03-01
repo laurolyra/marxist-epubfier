@@ -1,7 +1,7 @@
-const express = require('express');
-const app = express();
+import express from "express";
+import bookRoute from "./routes/books";
 
-const { bookRoute } = require('./routes');
+const app = express();
 
 app.get('/', (_req, res) => {
   res.status(200).send('Hello World!');
@@ -9,4 +9,4 @@ app.get('/', (_req, res) => {
 
 app.use('/book-page', bookRoute)
 
-module.exports = app;
+export default app;
