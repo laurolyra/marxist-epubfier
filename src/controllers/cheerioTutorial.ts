@@ -5,20 +5,19 @@ import axios from "axios";
 import * as fs from 'fs';
 
 export const getChapters = ($) => { 
-	const chapterLinks = $('p.toc');
+	const chapterLinks = $('p[class*=toc]');
 	const chapterList = [];
-	chapterLinks.each((index, el) => {
-    // const chapter = $(el).find('a').attr('href');
-    const chapter = $(el).find('a').each(function(i, link){chapterList.push($(link).attr('href'))});
-    // console.log('chapter:', chapter)
-		// chapterList.push(chapter)
-	}) 
-  console.log('after push:', chapterList)
+	chapterLinks.each((i, el) =>
+    $(el).find('a').each(function(i, link){chapterList.push($(link).attr('href'))})
+  )
+  const chapterURLSet = new Set(chapterList);
+  // console.log('after push:', new Set(chapterList))
+  chapterURLSet.forEach(item => console.log('item:', item));
 }
 
-export const chapterScrapper = () => 
+export const chapterScrapper = (req, res) => 
   axios.get(TARGET_URL).then((res: any) => {
     const body = res.data;
     const $ = cheerio.load(body);
-    getChapters($)
-  })
+    getChapters($);
+  });
