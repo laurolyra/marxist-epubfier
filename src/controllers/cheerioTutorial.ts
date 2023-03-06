@@ -1,40 +1,24 @@
 import { Request, Response } from "express";
 import { TARGET_URL } from "../variables";
-import cheerio from "cheerio";
+import * as cheerio from "cheerio";
 import axios from "axios";
 import * as fs from 'fs';
 
-// app.get('/book-page/:name', (req, res) => {
-//   const { name } = req.params;
-//   res.status(200).send(name.toUpperCase());
-// });
-interface PokemonItem {
-  img: string;
-  name: string;
+export const getChapters = ($) => { 
+	const chapterLinks = $('p.toc');
+	const chapterList = [];
+	chapterLinks.each((index, el) => {
+    // const chapter = $(el).find('a').attr('href');
+    const chapter = $(el).find('a').each(function(i, link){chapterList.push($(link).attr('href'))});
+    // console.log('chapter:', chapter)
+		// chapterList.push(chapter)
+	}) 
+  console.log('after push:', chapterList)
 }
 
-export const getPokemons = ($) => {
-  const pokemons = $('.products');
-  console.log('.products.children', pokemons.children)
-  // const pokemonData = [];
-  // pokemons.each((el: object) => {
-  //     const pokemon: PokemonItem = {img: '', name: ''};
-  //     pokemon.img = $(el).find('a > img').attr('src');
-  //     pokemon.name = $(el).find('h2').text();
-  //     pokemonData.push(pokemon)
-  // })
-  // fs.writeFile("pokemon.json", JSON.stringify(pokemonData, null, 2), (err) => {
-  //   if (err) {
-  //     console.log('error:', err);
-  //     return;
-  //   }
-  //   console.log('data successfull')
-  // })
-}
-
-export const pokeTest = () => 
+export const chapterScrapper = () => 
   axios.get(TARGET_URL).then((res: any) => {
     const body = res.data;
     const $ = cheerio.load(body);
-    getPokemons($)
+    getChapters($)
   })

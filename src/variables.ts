@@ -1,1 +1,1 @@
-export const TARGET_URL = 'https://scrapeme.live/shop/';
+export const TARGET_URL = 'https://www.marxists.org/portugues/marx/1848/ManifestoDoPartidoComunista/index.htm';
